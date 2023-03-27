@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 190612208}
   - component: {fileID: 190612207}
   - component: {fileID: 190612206}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ground (1)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -278,7 +278,7 @@ GameObject:
   - component: {fileID: 561679878}
   - component: {fileID: 561679877}
   - component: {fileID: 561679876}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ground
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -475,7 +475,7 @@ GameObject:
   - component: {fileID: 1069146934}
   - component: {fileID: 1069146933}
   - component: {fileID: 1069146932}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player1
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -558,9 +558,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerRigid: {fileID: 1069146932}
   moveSpeed: 500
+  maxMoveVelocity: 7
   jumpForce: 10
   jumpKey: 119
   axisName: Horizontal P1
+  platformLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  raycastDistance: 0.1
 --- !u!212 &1069146935
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -626,7 +631,7 @@ GameObject:
   - component: {fileID: 1887547757}
   - component: {fileID: 1887547756}
   - component: {fileID: 1887547755}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player2
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -709,9 +714,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerRigid: {fileID: 1887547755}
   moveSpeed: 500
+  maxMoveVelocity: 7
   jumpForce: 10
   jumpKey: 273
   axisName: Horizontal P2
+  platformLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  raycastDistance: 0.1
 --- !u!212 &1887547758
 SpriteRenderer:
   m_ObjectHideFlags: 0
