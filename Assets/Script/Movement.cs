@@ -9,9 +9,9 @@ public class Movement : MonoBehaviour
     [SerializeField] private float jumpForce = 10f;
     [SerializeField] private KeyCode jumpKey = KeyCode.W;
     [SerializeField] private string axisName = "Horizontal P1";
-
     [SerializeField] private LayerMask platformLayerMask;
     [SerializeField] private float raycastDistance = 0.1f;
+    [SerializeField] private GameObject face;
     private BoxCollider2D _boxCollider2d;
 
 
@@ -23,9 +23,17 @@ public class Movement : MonoBehaviour
     private void Move()
     {
         Vector2 movement = new Vector2(Input.GetAxis(axisName) * moveSpeed * Time.deltaTime, 0);
+        if (Input.GetAxis(axisName) > 0)
+        {
+            face.transform.localScale = new Vector3(Mathf.Abs(face.transform.localScale.x), face.transform.localScale.y, face.transform.localScale.z);
+        }
+        else if (Input.GetAxis(axisName) < 0)
+        {
+            face.transform.localScale = new Vector3(-Mathf.Abs(face.transform.localScale.x), face.transform.localScale.y, face.transform.localScale.z);
+        }
+        Debug.Log("Teeeeee" + Input.GetAxis(axisName));
         playerRigid.velocity = new Vector2(Mathf.Clamp(playerRigid.velocity.x, -maxMoveVelocity, maxMoveVelocity),
             playerRigid.velocity.y);
-        Debug.Log(playerRigid.velocity);
         playerRigid.AddForce(movement);
     }
 
