@@ -7,6 +7,8 @@ public class CameraScript : MonoBehaviour
 {
     private GameObject[] _players;
     private GameObject _topMostPlayer;
+
+    public GameObject GameOverCanvas;
     
     [SerializeField] private AnimationCurve curve;
     [SerializeField] private float smoothingSpeed = 20f;
@@ -92,6 +94,9 @@ public class CameraScript : MonoBehaviour
             {
                 _hasPlayerLost = true;
                 Time.timeScale = 0f;
+                
+                GameOverCanvas.SetActive(true);
+
                 Debug.Log("Game Over");
             }
         }
