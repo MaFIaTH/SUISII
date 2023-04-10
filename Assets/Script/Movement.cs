@@ -31,7 +31,7 @@ public class Movement : MonoBehaviour
         {
             face.transform.localScale = new Vector3(-Mathf.Abs(face.transform.localScale.x), face.transform.localScale.y, face.transform.localScale.z);
         }
-        Debug.Log("Teeeeee" + Input.GetAxis(axisName));
+        //Debug.Log("Teeeeee" + Input.GetAxis(axisName));
         playerRigid.velocity = new Vector2(Mathf.Clamp(playerRigid.velocity.x, -maxMoveVelocity, maxMoveVelocity),
             playerRigid.velocity.y);
         playerRigid.AddForce(movement);
