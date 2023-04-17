@@ -1862,7 +1862,7 @@ MonoBehaviour:
     m_Bits: 64
   raycastDistance: 0.1
   face: {fileID: 2113915787}
-  jumpSound: {fileID: 8300000, guid: 888a2332eb7c0024b8ed2896e944ed02, type: 3}
+  jumpSound: {fileID: 8300000, guid: 31d4eccae7014454787d2d3abd17f224, type: 3}
 --- !u!212 &1887547758
 SpriteRenderer:
   m_ObjectHideFlags: 0
