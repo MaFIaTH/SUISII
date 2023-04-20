@@ -12,12 +12,15 @@ public class Movement : MonoBehaviour
     [SerializeField] private LayerMask platformLayerMask;
     [SerializeField] private float raycastDistance = 0.1f;
     [SerializeField] private GameObject face;
+    [SerializeField] private AudioClip jumpSound;
+    private AudioSource _audioSource;
     private BoxCollider2D _boxCollider2d;
 
 
     private void Awake()
     {
         _boxCollider2d = transform.GetComponent<BoxCollider2D>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     private void Move()
@@ -60,6 +63,9 @@ public class Movement : MonoBehaviour
         {
             Vector2 jump = new Vector2(0, jumpForce);
             playerRigid.AddForce(jump, ForceMode2D.Impulse);
+            float randomPitch = Random.Range(0.5f, 1.5f);
+            _audioSource.pitch = randomPitch;
+            _audioSource.PlayOneShot(jumpSound);
         }
     }
     
