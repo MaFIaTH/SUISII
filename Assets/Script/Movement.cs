@@ -11,28 +11,35 @@ public class Movement : MonoBehaviour
     [SerializeField] private string axisName = "Horizontal P1";
     [SerializeField] private LayerMask platformLayerMask;
     [SerializeField] private float raycastDistance = 0.1f;
-    [SerializeField] private GameObject face;
+    [SerializeField] private GameObject playerSprite;
     [SerializeField] private AudioClip jumpSound;
+    private Animator _animator;
     private AudioSource _audioSource;
     private BoxCollider2D _boxCollider2d;
 
 
     private void Awake()
     {
-        _boxCollider2d = transform.GetComponent<BoxCollider2D>();
+        _boxCollider2d = GetComponent<BoxCollider2D>();
         _audioSource = GetComponent<AudioSource>();
+        _animator = playerSprite.GetComponent<Animator>();
     }
 
     private void Move()
     {
         Vector2 movement = new Vector2(Input.GetAxis(axisName) * moveSpeed * Time.deltaTime, 0);
+        _animator.SetBool("IsWalking", Input.GetAxis(axisName) != 0);
         if (Input.GetAxis(axisName) > 0)
         {
-            face.transform.localScale = new Vector3(Mathf.Abs(face.transform.localScale.x), face.transform.localScale.y, face.transform.localScale.z);
+            var localScale = playerSprite.transform.localScale;
+            localScale = new Vector3(Mathf.Abs(localScale.x), localScale.y, localScale.z);
+            playerSprite.transform.localScale = localScale;
         }
         else if (Input.GetAxis(axisName) < 0)
         {
-            face.transform.localScale = new Vector3(-Mathf.Abs(face.transform.localScale.x), face.transform.localScale.y, face.transform.localScale.z);
+            var localScale = playerSprite.transform.localScale;
+            localScale = new Vector3(-Mathf.Abs(localScale.x), localScale.y, localScale.z);
+            playerSprite.transform.localScale = localScale;
         }
         //Debug.Log("Teeeeee" + Input.GetAxis(axisName));
         playerRigid.velocity = new Vector2(Mathf.Clamp(playerRigid.velocity.x, -maxMoveVelocity, maxMoveVelocity),
