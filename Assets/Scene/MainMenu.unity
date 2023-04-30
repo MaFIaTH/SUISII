@@ -903,7 +903,7 @@ GameObject:
   - component: {fileID: 1988748274}
   - component: {fileID: 1988748273}
   m_Layer: 5
-  m_Name: TitelGameCanvas
+  m_Name: TitleGameCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -925,7 +925,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 119
 --- !u!114 &1988748274
 MonoBehaviour:
   m_ObjectHideFlags: 0
