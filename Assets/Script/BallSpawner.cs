@@ -23,13 +23,17 @@ namespace Script
         [SerializeField] private bool destroyOnCollision;
         
         private Transform _ballSpawnPoint;
-        // Start is called before the first frame update
+        
         private void Start()
         {
             _ballSpawnPoint = transform;
             StartCoroutine(SpawnBall());
         }
         
+        /// <summary>
+        /// Spawn ball with designated setting and interval.
+        /// </summary>
+        /// <returns></returns>
         private IEnumerator SpawnBall()
         {
             while (true)
