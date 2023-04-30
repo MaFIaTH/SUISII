@@ -70,6 +70,7 @@ public class Movement : MonoBehaviour
         {
             Vector2 jump = new Vector2(0, jumpForce);
             playerRigid.AddForce(jump, ForceMode2D.Impulse);
+            _animator.Play("Jump");
             float randomPitch = Random.Range(0.5f, 1.5f);
             _audioSource.pitch = randomPitch;
             _audioSource.PlayOneShot(jumpSound);
