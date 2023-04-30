@@ -4,9 +4,13 @@ namespace Script
 {
     public class VictoryLine : MonoBehaviour
     {
-        [SerializeField] private GameController gameController;
+        private int _playersInTrigger;
+        private GameController _gameController;
         
-        private int _playersInTrigger = 0;
+        private void Awake()
+        {
+            _gameController = FindObjectOfType<GameController>();
+        }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
@@ -28,7 +32,7 @@ namespace Script
         {
             if (other.CompareTag("Player") && _playersInTrigger >= 2)
             {
-                gameController.Victory();
+                _gameController.Victory();
             }
         }
     }
