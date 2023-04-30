@@ -1,30 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class QuitGameButton : MonoBehaviour
+namespace Script.TitleGameButton
 {
-    private Button _QuitGameButton;
-    // Start is called before the first frame update
-    void Start()
+    public class QuitGameButton : MonoBehaviour
     {
-        _QuitGameButton = GetComponent<Button>();
-        _QuitGameButton.onClick.AddListener(QuitGame);
-    }
+        private Button _quitGameButton;
+        // Start is called before the first frame update
+        private void Start()
+        {
+            _quitGameButton = GetComponent<Button>();
+            _quitGameButton.onClick.AddListener(QuitGame);
+        }
 
-    void QuitGame()
-    {
+        private void QuitGame()
+        {
 #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
+            UnityEditor.EditorApplication.isPlaying = false;
 #endif
-        Application.Quit();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+            Application.Quit();
+        }
     }
 }

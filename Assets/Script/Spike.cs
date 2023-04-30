@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -23,6 +22,10 @@ namespace Script
             StartCoroutine(SpikeBehavior());
         }
 
+        /// <summary>
+        /// Control the spike animation and interval
+        /// </summary>
+        /// <returns></returns>
         private IEnumerator SpikeBehavior()
         {
             while (true)

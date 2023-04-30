@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -13,7 +12,6 @@ namespace Script
         [SerializeField] private List<Button> restartButton;
         [SerializeField] private List<Button> mainMenuButton;
         
-        // Start is called before the first frame update
         private void Awake()
         {
             restartButton.ForEach(button => button.onClick.AddListener(RestartGame));
@@ -25,7 +23,7 @@ namespace Script
             Time.timeScale = 1f;
             gameOverCanvas.SetActive(false);
         }
-
+        
         public void GameOver()
         {
             Time.timeScale = 0f;

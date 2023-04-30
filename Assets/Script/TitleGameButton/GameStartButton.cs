@@ -1,28 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GameStartButton : MonoBehaviour
+namespace Script.TitleGameButton
 {
-    private Button _GameStartButton;
+    public class GameStartButton : MonoBehaviour
+    {
+        private Button _gameStartButton;
     
-    // Start is called before the first frame update
-    void Start()
-    {
-        _GameStartButton = GetComponent<Button>();
-        _GameStartButton.onClick.AddListener(GameStart);
-    }
+        // Start is called before the first frame update
+        private void Start()
+        {
+            _gameStartButton = GetComponent<Button>();
+            _gameStartButton.onClick.AddListener(GameStart);
+        }
 
-    void GameStart()
-    {
-        SceneManager.LoadScene("Game");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        private void GameStart()
+        {
+            SceneManager.LoadScene("Game");
+        }
     }
 }

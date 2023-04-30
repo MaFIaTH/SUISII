@@ -18,16 +18,14 @@ namespace Script
         [SerializeField] private float yMax;
         
         private Camera _mainCamera;
-
-        // Start is called before the first frame update
+        
         private void Start()
         {
             Time.timeScale = 1f;
             _mainCamera = Camera.main;
             _players = GameObject.FindGameObjectsWithTag("Player");
         }
-
-        // Update is called once per frame
+        
         private void Update()
         {
             CheckPlayerPosition();
@@ -60,6 +58,9 @@ namespace Script
             o.transform.position = new Vector3(x, y, o.transform.position.z);
         }
 
+        /// <summary>
+        /// Check if the player is in the camera field of view. If not, game over
+        /// </summary>
         private void CheckIfPlayerIsInCamera()
         {
             Camera mainCamera = _mainCamera;
