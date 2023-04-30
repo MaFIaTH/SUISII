@@ -1,5 +1,7 @@
 fileFormatVersion: 2
-guid: b173b5e8fe7704f42add1f334be0e9b4
+guid: 07376bb324d4c8e4196eb301f1b38e1e
+labels:
+- Singleton
 DefaultImporter:
   externalObjects: {}
   userData: 
