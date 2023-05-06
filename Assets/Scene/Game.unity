@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: fcea1774f05fc344fadfb1d4bb78b30a, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.47896093, g: 0.5332228, b: 0.5296314, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2328,7 +2328,9 @@ GameObject:
   - component: {fileID: 1038948603}
   - component: {fileID: 1038948606}
   - component: {fileID: 1038948607}
-  m_Layer: 0
+  - component: {fileID: 1038948608}
+  - component: {fileID: 1038948609}
+  m_Layer: 7
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -2420,25 +2422,27 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
+      inSlope: 0.19321421
+      outSlope: 0.19321421
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.2
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
+      inSlope: 0.28275248
+      outSlope: 0.28275248
+      tangentMode: 0
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.17500001
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
   smoothingSpeed: 300
+  yDifferentThreshold: 5
+  xDifferentThreshold: 5
   xMin: -1000
   xMax: 1000
   yMin: -1000
@@ -2455,7 +2459,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -1656564184647342355, guid: 84b16966436f91c4f8e4643d8cf58d8f, type: 2}
   m_audioClip: {fileID: 8300000, guid: e62a0a62dc2cd30468e30caab53624bd, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.25
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -2539,6 +2543,83 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1038948608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1038948602}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sharedProfile: {fileID: 11400000, guid: f856c2550156f4a458c638db9ad1bab1, type: 2}
+  isGlobal: 1
+  blendDistance: 0
+  weight: 1
+  priority: 0
+--- !u!114 &1038948609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1038948602}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeTrigger: {fileID: 1038948605}
+  volumeLayer:
+    serializedVersion: 2
+    m_Bits: 192
+  stopNaNPropagation: 1
+  finalBlitToCameraTarget: 0
+  antialiasingMode: 0
+  temporalAntialiasing:
+    jitterSpread: 0.75
+    sharpness: 0.25
+    stationaryBlending: 0.95
+    motionBlending: 0.85
+  subpixelMorphologicalAntialiasing:
+    quality: 2
+  fastApproximateAntialiasing:
+    fastMode: 0
+    keepAlpha: 0
+  fog:
+    enabled: 1
+    excludeSkybox: 1
+  debugLayer:
+    lightMeter:
+      width: 512
+      height: 256
+      showCurves: 1
+    histogram:
+      width: 512
+      height: 256
+      channel: 3
+    waveform:
+      exposure: 0.12
+      height: 256
+    vectorscope:
+      size: 256
+      exposure: 0.12
+    overlaySettings:
+      linearDepth: 0
+      motionColorIntensity: 4
+      motionGridSize: 64
+      colorBlindnessType: 0
+      colorBlindnessStrength: 1
+  m_Resources: {fileID: 11400000, guid: d82512f9c8e5d4a4d938b575d47f88d4, type: 2}
+  m_ShowToolkit: 0
+  m_ShowCustomSorter: 0
+  breakBeforeColorGrading: 0
+  m_BeforeTransparentBundles: []
+  m_BeforeStackBundles: []
+  m_AfterStackBundles: []
 --- !u!1 &1069146930
 GameObject:
   m_ObjectHideFlags: 0
