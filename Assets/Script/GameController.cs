@@ -14,8 +14,16 @@ namespace Script
         
         private void Awake()
         {
-            restartButton.ForEach(button => button.onClick.AddListener(RestartGame));
-            mainMenuButton.ForEach(button => button.onClick.AddListener(MainMenu));
+            restartButton.ForEach(button => button.onClick.AddListener(delegate
+            {
+                Time.timeScale = 1f;
+                RestartGame();
+            }));
+            mainMenuButton.ForEach(button => button.onClick.AddListener(delegate
+            {
+                Time.timeScale = 1f;
+                MainMenu();
+            }));
         }
 
         private void Start()

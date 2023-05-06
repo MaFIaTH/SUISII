@@ -7,23 +7,27 @@ namespace Script
     public class CameraScript : MonoBehaviour
     {
         private GameObject[] _players;
-        private GameObject _topMostPlayer;
+        private GameObject _targetPlayer;
 
         [SerializeField] private GameController gameController;
         [SerializeField] private AnimationCurve curve;
         [SerializeField] private float smoothingSpeed = 20f;
+        [SerializeField] private float yDifferentThreshold = 5f;
+        [SerializeField] private float xDifferentThreshold = 5f;
         [SerializeField] private float xMin;
         [SerializeField] private float xMax;
         [SerializeField] private float yMin;
         [SerializeField] private float yMax;
         
         private Camera _mainCamera;
-        
+        private List<BoxCollider2D> _colliders;
+
         private void Start()
         {
             Time.timeScale = 1f;
             _mainCamera = Camera.main;
             _players = GameObject.FindGameObjectsWithTag("Player");
+            _colliders = _players.Select(player => player.GetComponent<BoxCollider2D>()).ToList();
         }
         
         private void Update()
@@ -34,14 +38,26 @@ namespace Script
         }
 
         /// <summary>
-        /// Check which player is the highest and set it as the top most player
+        /// Check which player is the target player for camera to follow
         /// </summary>
         private void CheckPlayerPosition()
         {
             //Select the y position of each player and put it in a list
             List<float> yPositions = _players.Select(t => t.transform.position.y).ToList();
-            //Get the index of the highest y position and set the top most player
-            _topMostPlayer = _players[yPositions.IndexOf(yPositions.Max())];
+            if (Mathf.Abs(yPositions[0] - yPositions[1]) >= yDifferentThreshold)
+            {
+                //Get the index of the highest y position and set the top most player
+                _targetPlayer = _players[yPositions.IndexOf(yPositions.Max())];
+                return;
+            }
+            List<float> xPositions = _players.Select(t => t.transform.position.x).ToList();
+            if (Mathf.Abs(xPositions[0] - xPositions[1]) >= xDifferentThreshold)
+            {
+                int index = Mathf.Abs(xPositions[0]) > Mathf.Abs(xPositions[1]) ? 0 : 1;
+                _targetPlayer = _players[index];
+                return;
+            }
+            _targetPlayer = _players[0];
         }
 
         /// <summary>
@@ -49,7 +65,7 @@ namespace Script
         /// </summary>
         private void SetNewPosition()
         {
-            Vector3 newPosition = Vector3.MoveTowards(transform.position, _topMostPlayer.transform.position,
+            Vector3 newPosition = Vector3.MoveTowards(transform.position, _targetPlayer.transform.position,
                 curve.Evaluate(Time.deltaTime) * smoothingSpeed);
             float x = Mathf.Clamp(newPosition.x, xMin, xMax);
             float y = Mathf.Clamp(newPosition.y, yMin, yMax);
@@ -63,16 +79,11 @@ namespace Script
         /// </summary>
         private void CheckIfPlayerIsInCamera()
         {
-            Camera mainCamera = _mainCamera;
-
-            foreach (GameObject player in _players)
+            Plane[] planes = GeometryUtility.CalculateFrustumPlanes(_mainCamera);
+            foreach (BoxCollider2D _ in _colliders.Where(boxCollider2D =>
+                         !GeometryUtility.TestPlanesAABB(planes, boxCollider2D.bounds)))
             {
-                Vector3 screenPos = mainCamera.WorldToViewportPoint(player.transform.position);
-
-                if (screenPos.x is < 0 or > 1 || screenPos.y is < 0 or > 1 || screenPos.z < 0)
-                {
-                    gameController.GameOver();
-                }
+                gameController.GameOver();
             }
         }
     }

@@ -8,10 +8,11 @@ namespace Script
         [SerializeField] private Rigidbody2D playerRigid;
         [SerializeField] private float moveSpeed = 10f;
         [SerializeField] private float maxMoveVelocity = 7f;
+        [SerializeField] private float decelerationRate = 0.5f;
         [SerializeField] private float jumpForce = 10f;
         [SerializeField] private KeyCode jumpKey = KeyCode.W;
         [SerializeField] private string axisName = "Horizontal P1";
-        [SerializeField] private LayerMask platformLayerMask;
+        [SerializeField] private LayerMask jumpableLayer;
         [SerializeField] private float raycastDistance = 0.1f;
         [SerializeField] private GameObject playerSprite;
         [SerializeField] private AudioClip jumpSound;
@@ -27,20 +28,41 @@ namespace Script
             _audioSource = GetComponent<AudioSource>();
             _animator = playerSprite.GetComponent<Animator>();
         }
-        
+
         private void Update()
         {
             Move();
+            FlipSprite();
             Jump();
         }
 
         /// <summary>
-        /// Move the player, play the animation, and flip the sprite accordingly to the direction of the movement.
+        /// Move the player and play the animation.
         /// </summary>
         private void Move()
         {
             Vector2 movement = new Vector2(Input.GetAxis(axisName) * moveSpeed * Time.deltaTime, 0);
             _animator.SetBool(IsWalking, Input.GetAxis(axisName) != 0);
+            playerRigid.AddForce(movement, ForceMode2D.Force);
+            playerRigid.velocity = new Vector2(Mathf.Clamp(playerRigid.velocity.x, -maxMoveVelocity, maxMoveVelocity),
+                playerRigid.velocity.y);
+            if (Input.GetAxis(axisName) != 0 || !(playerRigid.velocity.magnitude > 0)) return;
+            Vector2 playerRigidVelocity = playerRigid.velocity;
+            Vector2 decelerationVelocity = playerRigidVelocity;
+            decelerationVelocity -= decelerationVelocity.normalized * decelerationRate;
+            playerRigidVelocity = new Vector2(decelerationVelocity.x, playerRigidVelocity.y);
+            playerRigid.velocity = playerRigidVelocity;
+            if (playerRigid.velocity.magnitude < decelerationRate)
+            {
+                playerRigid.velocity = Vector2.zero;
+            }
+        }
+        
+        /// <summary>
+        /// Flip the sprite according to the direction of the player.
+        /// </summary>
+        private void FlipSprite()
+        {
             if (Input.GetAxis(axisName) > 0)
             {
                 var localScale = playerSprite.transform.localScale;
@@ -53,9 +75,6 @@ namespace Script
                 localScale = new Vector3(-Mathf.Abs(localScale.x), localScale.y, localScale.z);
                 playerSprite.transform.localScale = localScale;
             }
-            playerRigid.velocity = new Vector2(Mathf.Clamp(playerRigid.velocity.x, -maxMoveVelocity, maxMoveVelocity),
-                playerRigid.velocity.y);
-            playerRigid.AddForce(movement);
         }
 
         /// <summary>
@@ -66,7 +85,7 @@ namespace Script
         {
             var bounds = _boxCollider2d.bounds;
             RaycastHit2D[] raycastHit = Physics2D.BoxCastAll(bounds.center, bounds.size, 0f,
-                Vector2.down, raycastDistance, platformLayerMask);
+                Vector2.down, raycastDistance, jumpableLayer);
             bool hit = raycastHit.Any(x => x.collider != _boxCollider2d);
             Color rayColor = hit ? Color.green : Color.red;
             Debug.DrawRay(_boxCollider2d.bounds.center + new Vector3(bounds.extents.x, 0),
